@@ -40,11 +40,8 @@ class TalentedPerson: Person, Talent {
         self.singing = singing
         self.dancing = dancing
         self.acting = acting
-        
         super.init(name: name, height: height)
-        
     }
-
 }
 
 class TalentedPersonWithBadPersonality: Person, Talent, BadPersonality {
@@ -58,7 +55,6 @@ class TalentedPersonWithBadPersonality: Person, Talent, BadPersonality {
         self.dancing = dancing
         self.acting = acting
         self.frequencyOfCursing = frequencyOfCursing
-        
         super.init(name: name, height: height)
     }
 }
@@ -73,14 +69,13 @@ struct AuditionManager {
             if (talent.singing == Level.A || talent.dancing == Level.A || talent.acting == Level.A) {
                 passedApplicantsList.append(applicant)
             }
-            passedApplicantsList.removeAll { applicant in
-                return applicant is BadPersonality
-            }
+            totalApplicantsList = passedApplicantsList.filter{ applicant in
+                !(applicant is BadPersonality)}
         }
     }
     
     func announcePassedApplicants() {
-        let list = passedApplicantsList.map { $0.name }.joined(separator: "\n")
+        let list = totalApplicantsList.map { $0.name }.joined(separator: "\n")
         print(
         "---합격자 명단---" + "\n" +
         list + "\n" +
